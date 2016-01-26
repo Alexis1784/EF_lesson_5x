@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EF_lesson_5_1
+namespace EF_lesson_5_2
 {
     class MyContextInitializer : DropCreateDatabaseAlways<PhoneContext>
     {
