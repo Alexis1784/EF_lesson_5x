@@ -12,36 +12,16 @@ namespace EF_lesson_5_2
         {
             using (PhoneContext db = new PhoneContext())
             {
-                var comps = db.Database.SqlQuery<Company>("SELECT * FROM Companies");
-                foreach (var company in comps)
-                    Console.WriteLine(company.Name);
-
-                System.Data.SqlClient.SqlParameter param = new System.Data.SqlClient.SqlParameter("@name", "%Samsung%");
-                var phones = db.Database.SqlQuery<Phone>("SELECT * FROM Phones WHERE Name LIKE @name", param);
+                System.Data.SqlClient.SqlParameter param = new System.Data.SqlClient.SqlParameter("@price", 26000);
+                var phones = db.Database.SqlQuery<Phone>("SELECT * FROM GetPhonesByPrice (@price)", param);
                 foreach (var phone in phones)
                     Console.WriteLine(phone.Name);
-
-                // вставка
-                Console.WriteLine();
-                Console.WriteLine("вставка:");
-                int numberOfRowInserted = db.Database.ExecuteSqlCommand("INSERT INTO Companies (Name) VALUES ('HTC')");
-                comps = db.Database.SqlQuery<Company>("SELECT * FROM Companies");
-                foreach (var company in comps)
-                    Console.WriteLine(company.Name);
-                // обновление
-                Console.WriteLine();
-                Console.WriteLine("обновление:");
-                int numberOfRowUpdated = db.Database.ExecuteSqlCommand("UPDATE Companies SET Name='Nokia' WHERE Id=3");
-                comps = db.Database.SqlQuery<Company>("SELECT * FROM Companies");
-                foreach (var company in comps)
-                    Console.WriteLine(company.Name);
-                // удаление
-                Console.WriteLine();
-                Console.WriteLine("удаление:");
-                int numberOfRowDeleted = db.Database.ExecuteSqlCommand("DELETE FROM Companies WHERE Id=3");
-                comps = db.Database.SqlQuery<Company>("SELECT * FROM Companies");
-                foreach (var company in comps)
-                    Console.WriteLine(company.Name);
+                // миграцию при добавлении класса DiscountPhone не производили, контекст данных не меняли:
+                // скидка - 15%
+                System.Data.SqlClient.SqlParameter param2 = new System.Data.SqlClient.SqlParameter("@discount", 15);
+                var phones2 = db.Database.SqlQuery<DiscountPhone>("SELECT * FROM GetPriceWithDiscount (@discount)", param2);
+                foreach (var p in phones2)
+                    Console.WriteLine("{0} - {1}", p.Name, p.Price);
             }
             Console.ReadLine();
         }

@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Company.cs" />
+    <Compile Include="DiscountPhone.cs" />
     <Compile Include="MyContextInitializer.cs" />
     <Compile Include="Phone.cs" />
     <Compile Include="PhoneContext.cs" />

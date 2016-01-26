@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EF_lesson_5_2
 {
-    class MyContextInitializer : DropCreateDatabaseAlways<PhoneContext>
+    class MyContextInitializer : DropCreateDatabaseIfModelChanges<PhoneContext>
     {
         protected override void Seed(PhoneContext db)
         {
